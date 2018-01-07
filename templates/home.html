@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block the_body %}
+<body>
+<h1>ESMs Self-Service Configuration Provisioning</h1>
+<div>
+    <a href="/previous/">View Previous Provisions</a>
+    <br/>
+    <h3>New Device Provisioning</h3>
+    <form action="/new/" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit" />
+</form>
+
+</div>
+</body>
+{% endblock %}
