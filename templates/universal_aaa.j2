@@ -1,7 +1,7 @@
 aaa new-model
 aaa group server tacacs+ ACS_GROUP
 {% for server in region_data.aaa_servers %} server {{ server }}
-{% endfor %} ip tacacs source-interface {{ device_data.management_interface['name'] }}
+{% endfor %} ip tacacs source-interface {{ device_data.management_interface.name }}
 !
 aaa authentication bla
 aaa authentication bla

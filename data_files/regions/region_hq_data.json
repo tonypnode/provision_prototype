@@ -1,9 +1,9 @@
 {
   "data": {
     "Name": "HQ",
-    "ID": "0",
+    "ID": 0,
     "AAA_Servers": ["10.10.10.10"],
-    "Logging_server": "10.10.10.3",
+    "Logging_Server": "10.10.10.3",
     "NMS_Subnets": ["10.10.100.0/24"]
   }
 }

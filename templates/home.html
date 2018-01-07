@@ -8,10 +8,9 @@
     <h3>New Device Provisioning</h3>
     <form action="/new/" method="post">
     {% csrf_token %}
-    {{ form }}
+    {{ provision_form }}
     <input type="submit" value="Submit" />
 </form>
-
 </div>
 </body>
 {% endblock %}

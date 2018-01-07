@@ -1,9 +1,9 @@
 {
   "data": {
     "Name": "Region 2",
-    "ID": "200",
+    "ID": 200,
     "AAA_Servers": ["2.2.2.2"],
-    "Logging_server": "2.2.2.3",
+    "Logging_Server": "2.2.2.3",
     "NMS_Subnets": ["2.2.100.0/24"]
   }
 }
