@@ -1,0 +1,46 @@
+!
+service timestamps debug datetime localtime
+service timestamps log datetime localtime
+service password-encryption
+!
+hostname {{ device_data.enclave }}{{ region_data.id }}{{ site_data.id }}:{{ device_data.function }}{{ device_data.function_count }}
+username {{ universal_data.username }} privilege 15 secret {{ universal_data.password }}
+!
+{% include 'universal_aaa.j2' %}
+!
+aaa session-id common
+ip subnet-zero
+no ip domain-lookup
+ip domain-name {{ universal_data.domain_name }}
+!
+archive
+ log config
+  logging enable
+  notify syslog contenttype plaintext
+  hidekeys
+!
+ip ssh version 2
+!
+ip classless
+no ip http server
+no ip http secure-server
+{% for subnet in site_data.local_acl_subnets['data'] %}access-list 1 permit {{ subnet[0] }} {{ subnet[1] }}
+{% endfor %}{% for subnet in site_data.local_acl_subnets['management'] %}access-list 1 permit {{ subnet[0] }} {{ subnet[1] }}
+{% endfor %}{% include 'universal_acl_vty.j2' %}
+!
+{% include 'universal_snmp.j2' %}
+!
+line con 0
+ bla bla bla
+ bla bla bla
+!
+
+line vty 0 4
+ access-class 1 in
+ exec-timeout 9 59
+ transport input ssh
+ transport output ssh
+!
+line vty 5 15
+ transport input none
+ transport output none

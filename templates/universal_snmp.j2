@@ -1,0 +1,7 @@
+snmp-server group READGROUP v3 priv read READVIEW access 2
+snmp-server view READVIEW internet included
+snmp-server view READVIEW system included
+snmp-server view READVIEW interfaces included
+snmp-server view READVIEW chassis included
+snmp-server ifindex persist
+snmp-server user {{ universal_data.snmp_username }} READGROUP v3 auth sha {{ universal_data.snmp_authpass }} priv AES 128 {{ universal_data.snmp_privpass }} access 2

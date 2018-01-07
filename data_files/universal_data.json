@@ -1,0 +1,10 @@
+{
+  "data": {
+      "username": "ENTERPRISE_USERNAME",
+      "password": "ENTERPRISE_PASSWORD",
+      "snmp_username": "ENTERPRISE_SNMP_USER",
+      "snmp_authpass": "ENTERPRISE_AUTHPASS",
+      "snmp_privpass": "ENTERPRISE_PRIVPASS",
+      "domain_name": "ENTERPRISE.COM"
+    }
+}

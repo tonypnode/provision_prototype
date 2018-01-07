@@ -1,0 +1,86 @@
+no service pad
+service timestamps debug datetime localtime
+service timestamps log datetime localtime
+service password-encryption
+!
+hostname {{ DEV.region_id }}{{ DEV.site_id }}:{{ DEV.function }}{{ DEV.function_count }}
+username {{ DEV.emergency_username}} privilege 15 secret {{ DEV.emergency_password }}
+!
+{% STANDARD_AAA_CONFIG %}
+
+no ip igmp snooping
+!
+!
+!
+!
+!
+!
+!
+!
+archive
+ log config
+  logging enable
+  notify syslog contenttype plaintext
+  hidekeys
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+{{ vlan_config }}
+!
+ip ssh version 2
+!
+{%  for interface in endpoint_interfaces %}
+interface {{ interface.name }}
+ description PHY:USER
+ switchport access vlan 666
+ {%  STANDARD_USER_PORT_CONFIG %}
+ shutdown
+{% endfor %}
+!
+{% for interface in trunk_interfaces %}
+interface {{ interface.name }}
+ description PHY:TRK:{{ interface.neighbor_hostname }}:{{ interface.neighbor_port }}
+{% endfor %}
+!
+interface Vlan{{ managment_SVI.id }}
+ description SVI:MANAGEMENT
+ ip address {{ management_SVI.ip_addr }} {{ managment_SVI.subnetmask }}
+!
+interface Vlan1
+ description SVI:DEAD_VLAN1
+ no ip address
+ shutdown
+!
+ip default-gateway {{ default_gateway }}
+ip classless
+no ip http server
+no ip http secure-server
+!
+!
+{% STANDARD_ACL_VTY %}
+!
+{% STANDARD_ACL_SNMP %}
+!
+{% STANDARD_LOGGING_CONFIG %}
+!
+{% STANDARD_SNMP_CONFIG %}
+!
+{% STANDARD_BANNER_LOGIN %}
+!
+{% STANDARD_BANNER_MOTD %}
+!
+line con 0
+{% STANDARD_CON0_CONFIG %}
+line vty 0 4
+ {% STANDARD_VTY_CONFIG %}
+line vty 5 15
+ transport output none
+ transport input none
+!
+{% NTP_CONFIG %}
+
+
+
+
